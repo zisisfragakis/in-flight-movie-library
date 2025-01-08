@@ -24,7 +24,8 @@ export class MovieCrudComponent implements OnInit {
   movieForm: FormGroup;
 
   categoryOptions: { label: string; value: string }[] = [];
-  filteredMovies: Movie[] = []; // To hold filtered movies from the service
+  filteredMovies: Movie[] = [];
+  isEditMode: boolean = false; // Track edit mode
 
   fields = [
     {
@@ -75,7 +76,7 @@ export class MovieCrudComponent implements OnInit {
   constructor(private fb: FormBuilder, private movieService: MovieService) {
     this.movieForm = this.fb.group({
       Title: ['', Validators.required],
-      Category: [[], Validators.required], // Updated to expect an array
+      Category: [[], Validators.required],
       Description: ['', Validators.required],
       Director: ['', Validators.required],
       Duration: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
@@ -84,26 +85,32 @@ export class MovieCrudComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Check if movie exists to determine edit mode
+    this.movieService.filteredMovies$.subscribe((movies) => {
+      this.filteredMovies = movies;
+      this.isEditMode = this.isExistingMovie(this.movie.Title);
+
+      // Disable the Title field if editing
+      if (this.isEditMode) {
+        this.movieForm.get('Title')?.disable({ emitEvent: false });
+      }
+    });
+
+    // Pre-fill form with movie data if available
     if (this.movie) {
       this.movieForm.patchValue(this.movie);
     }
 
-    // Fetch categories and set options for the MultiSelect
+    // Fetch categories and set MultiSelect options
     this.movieService.getCategories().subscribe((categories) => {
       this.categoryOptions = categories.map((category) => ({
         label: category,
         value: category,
       }));
 
-      // Pre-select categories if the movie has them
       if (this.movie?.Category) {
         this.movieForm.get('Category')?.setValue(this.movie.Category);
       }
-    });
-
-    // Subscribe to filteredMovies to use it for the existence check
-    this.movieService.filteredMovies$.subscribe((movies) => {
-      this.filteredMovies = movies;
     });
   }
 
@@ -111,9 +118,9 @@ export class MovieCrudComponent implements OnInit {
     this.movieForm.markAllAsTouched();
 
     if (this.movieForm.valid) {
-      const newMovie: Movie = this.movieForm.value;
+      const newMovie: Movie = this.movieForm.getRawValue();
 
-      if (this.isExistingMovie(newMovie.Title)) {
+      if (this.isEditMode) {
         this.movieService.updateMovie(newMovie);
         console.log('Movie updated:', newMovie);
       } else {

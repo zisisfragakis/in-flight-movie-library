@@ -1,6 +1,106 @@
 <div
   class="min-h-screen flex gap-2 flex-col bg-cover bg-[url('https://img.freepik.com/free-vector/abstract-blur-blue-pink-gradient-background-design_53876-136695.jpg?semt=ais_hybrid')]"
 >
-  <p class="bg-gray-300 w-full">header-layout works!</p>
+  <div
+    class="bg-gray-300 w-full text-black p-2 flex justify-between items-center"
+  >
+    <button (click)="navigateToHome()">
+      <i
+        class="pi pi-home hover:scale-110 transition-all duration-200"
+        style="color: black"
+      ></i>
+    </button>
+
+    <h4>In-Flight movie library</h4>
+
+    <div class="flex gap-4">
+      <div class="flex flex-col gap-1 text-sm text-end">
+        <span>remaining flight:</span>
+        <span>
+          {{ counter }}
+        </span>
+      </div>
+      <button
+        class="!bg-transparent !border-red-500"
+        *ngIf="isLogged"
+        pButton
+        (click)="onLogout()"
+      >
+        <i
+          class="pi pi-sign-out hover:scale-110 transition-all duration-200"
+          style="color: red"
+        ></i>
+      </button>
+      <button
+        class="!bg-transparent"
+        *ngIf="!isLogged"
+        pButton
+        (click)="openLoginDialog()"
+      >
+        <i
+          class="pi pi-sign-in hover:scale-110 transition-all duration-200"
+          style="color: green"
+        ></i>
+      </button>
+    </div>
+  </div>
+
   <router-outlet></router-outlet>
+
+  <!-- Login Dialog -->
+  <p-dialog [(visible)]="displayLoginDialog" [modal]="true" header="Login">
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+      <div class="flex flex-col gap-6">
+        <div class="relative">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            pInputText
+            formControlName="username"
+            placeholder="Enter your username"
+            class="w-full"
+          />
+          <small
+            *ngIf="
+              loginForm.get('username')?.touched &&
+              loginForm.get('username')?.invalid
+            "
+            class="p-error text-xs text-red-500 absolute -bottom-4 left-0"
+          >
+            Username is required
+          </small>
+        </div>
+
+        <div class="relative">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            pInputText
+            formControlName="password"
+            placeholder="Enter your password"
+            class="w-full"
+          />
+          <small
+            *ngIf="
+              loginForm.get('password')?.touched &&
+              loginForm.get('password')?.invalid
+            "
+            class="p-error text-xs text-red-500 absolute -bottom-4 left-0"
+          >
+            Password is required
+          </small>
+        </div>
+
+        <button
+          pButton
+          type="submit"
+          label="Submit"
+          class="w-full"
+          [disabled]="loginForm.invalid"
+        ></button>
+      </div>
+    </form>
+  </p-dialog>
 </div>

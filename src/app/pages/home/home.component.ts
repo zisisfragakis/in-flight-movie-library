@@ -7,6 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { MovieCrudComponent } from '../../components/movie-crud/movie-crud.component';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+  isLogged: boolean = false;
   filteredMovies: Movie[] = [];
   displayDialog: boolean = false;
   categories: string[] = [];
@@ -36,9 +38,16 @@ export class HomeComponent implements OnInit {
     Starring: [],
   };
 
-  constructor(private movieService: MovieService) {}
+  constructor(
+    private movieService: MovieService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    this.authService.isAdmin$.subscribe((isLoggedIn) => {
+      this.isLogged = isLoggedIn;
+    });
+
     // Subscribe to filteredMovies from MovieService
     this.movieService.filteredMovies$.subscribe((movies) => {
       this.filteredMovies = movies;

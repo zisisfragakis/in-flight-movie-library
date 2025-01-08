@@ -1,5 +1,32 @@
-<div class="h-full" *ngIf="movie; else notFound">
-  <h1>{{ movie.Title }}</h1>
+<div
+  class="h-full px-10 flex flex-col lg:flex-row gap-10"
+  *ngIf="movie; else notFound"
+>
+  <div
+    class="bg-[url('https://img.freepik.com/premium-psd/movie-poster-design-template_841014-17001.jpg')] h-[40vh] w-full lg:size-[37.5rem] bg-bottom bg-cover rounded-3xl relative"
+  >
+    <h1
+      class="absolute top-4 lg:top-20 text-6xl font-bold w-full flex justify-center text-center"
+    >
+      {{ movie.Title }}
+    </h1>
+  </div>
+  <div
+    class="w-full lg:w-2/3 flex flex-col gap-4 sm:gap-10 bg-gray-400/50 rounded-3xl p-4"
+  >
+    <h4 class="text-5xl font-medium w-full text-center text-zinc-700">
+      Movie details
+    </h4>
+
+    <div class="text-lg font-semibold">{{ movie.Description }}</div>
+    <div class="flex flex-col gap-1">
+      <span class="text-black font-medium">Starring:</span>
+      <span class="text-black font-medium">{{ movie.Starring }}</span>
+    </div>
+    <div>Director: {{ movie.Director }}</div>
+    <div>Duration : {{ movie.Duration }}</div>
+    <div>Categories {{ movie.Category }}</div>
+  </div>
 </div>
 
 <ng-template #notFound>

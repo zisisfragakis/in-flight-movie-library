@@ -1,8 +1,11 @@
 <div
   (click)="navigateToDetails()"
-  class="relative movie-card bg-gray-500 flex flex-col justify-between p-4 rounded-lg hover:cursor-pointer border-2 border-transparent hover:border-white min-h-[20rem] transition-all hover:scale-110 duration-300"
+  class="relative movie-card bg-cover bg-[url('https://www.fubiz.net/wp-content/uploads/2016/09/affichefilms-9-900x1140.jpg')] flex flex-col justify-between p-4 rounded-lg hover:cursor-pointer border-2 border-transparent hover:shadow-lg hover:shadow-black/40 hover:border-white min-h-[20rem] transition-all hover:scale-110 duration-300"
 >
-  <div class="absolute top-0 right-2 p-1 flex gap-2 items-center">
+  <div
+    *ngIf="isLogged"
+    class="absolute top-0 right-2 p-1 flex gap-2 items-center"
+  >
     <button (click)="openEditDialog(); $event.stopPropagation()" class="w-fit">
       <i
         class="pi pi-pen-to-square hover:!text-green-500 transition-all duration-300"
@@ -23,8 +26,27 @@
   <h2 class="text-2xl font-semibold text-wrap text-center line-clamp-2 pt-4">
     {{ movie.Title }}
   </h2>
-  <p>Category: {{ movie.Category }}</p>
-  <div>Duration: {{ movie.Duration }} minutes</div>
+
+  <div class="flex flex-col gap-2">
+    <div class="flex gap-2 flex-wrap">
+      <app-category-badge
+        *ngFor="let category of movie.Category"
+        [category]="category"
+      />
+    </div>
+
+    <div
+      class="flex gap-1 items-center"
+      [ngClass]="
+        convertCounterToMinutes(counter) > parseMovieDuration(movie.Duration)
+          ? 'text-green-500'
+          : 'text-red-500'
+      "
+    >
+      <i class="pi pi-clock" style="color: white"></i>
+      {{ movie.Duration }} min
+    </div>
+  </div>
 </div>
 
 <p-dialog
