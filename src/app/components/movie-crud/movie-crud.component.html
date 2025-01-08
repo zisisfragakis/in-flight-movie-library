@@ -27,6 +27,15 @@
         [formControlName]="field.id"
         [placeholder]="field.placeholder"
       ></textarea>
+
+      <!-- MultiSelect for Category -->
+      <p-multiSelect
+        *ngSwitchCase="'multiSelect'"
+        [options]="categoryOptions"
+        [formControlName]="field.id"
+        defaultLabel="Select categories"
+      >
+      </p-multiSelect>
     </ng-container>
 
     <!-- Error Message -->
@@ -41,7 +50,10 @@
   </div>
 
   <!-- Submit Button -->
-  <button type="submit" class="btn btn-primary" [disabled]="movieForm.invalid">
+  <button
+    type="submit"
+    class="btn btn-primary bg-blue-400 rounded py-2 hover:bg-blue-500 transition-all duration-300"
+  >
     Submit
   </button>
 </form>

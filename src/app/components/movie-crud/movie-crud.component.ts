@@ -7,18 +7,21 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { Movie } from '../../models/movie.model';
+import { MovieService } from '../../services/movie.service';
 
 @Component({
   selector: 'app-movie-crud',
   templateUrl: './movie-crud.component.html',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
   styleUrls: ['./movie-crud.component.css'],
 })
 export class MovieCrudComponent implements OnInit {
   @Input({ required: true }) movie!: Movie;
 
   movieForm: FormGroup;
+  categoryOptions: { label: string; value: string }[] = [];
 
   fields = [
     {
@@ -31,8 +34,8 @@ export class MovieCrudComponent implements OnInit {
     {
       id: 'Category',
       label: 'Category',
-      type: 'text',
-      placeholder: 'Enter movie category',
+      type: 'multiSelect',
+      placeholder: 'Select movie categories',
       required: true,
     },
     {
@@ -66,10 +69,10 @@ export class MovieCrudComponent implements OnInit {
     },
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private movieService: MovieService) {
     this.movieForm = this.fb.group({
       Title: ['', Validators.required],
-      Category: ['', Validators.required],
+      Category: [[], Validators.required], // Updated to expect an array
       Description: ['', Validators.required],
       Director: ['', Validators.required],
       Duration: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
@@ -78,12 +81,28 @@ export class MovieCrudComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Pre-fill the form with the provided movie data
     if (this.movie) {
       this.movieForm.patchValue(this.movie);
     }
+
+    // Fetch categories and set options for the MultiSelect
+    this.movieService.getCategories().subscribe((categories) => {
+      this.categoryOptions = categories.map((category) => ({
+        label: category,
+        value: category,
+      }));
+
+      // Pre-select categories if the movie has them
+      if (this.movie?.Category) {
+        this.movieForm.get('Category')?.setValue(this.movie.Category);
+      }
+    });
   }
 
   onSubmit(): void {
+    this.movieForm.markAllAsTouched();
+
     if (this.movieForm.valid) {
       console.log('Movie Form Data:', this.movieForm.value);
     } else {
