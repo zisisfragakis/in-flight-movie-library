@@ -1,0 +1,47 @@
+<form
+  [formGroup]="movieForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col gap-6 min-w-[21rem]"
+>
+  <div
+    *ngFor="let field of fields"
+    class="form-group flex flex-col gap-1 relative"
+  >
+    <label [for]="field.id" class="text-sm">{{ field.label }}</label>
+
+    <!-- Dynamic Input/textarea -->
+    <ng-container [ngSwitch]="field.type">
+      <input
+        *ngSwitchCase="'text'"
+        [id]="field.id"
+        [type]="field.type"
+        class="p-2 rounded-md focus-visible:outline-none"
+        [formControlName]="field.id"
+        [placeholder]="field.placeholder"
+      />
+
+      <textarea
+        *ngSwitchCase="'textarea'"
+        [id]="field.id"
+        class="p-2 rounded-md focus-visible:outline-none"
+        [formControlName]="field.id"
+        [placeholder]="field.placeholder"
+      ></textarea>
+    </ng-container>
+
+    <!-- Error Message -->
+    <div
+      *ngIf="
+        movieForm.get(field.id)?.touched && movieForm.get(field.id)?.invalid
+      "
+      class="error-message text-red-500 text-xs font-thin absolute -bottom-4"
+    >
+      {{ field.label }} is required
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-primary" [disabled]="movieForm.invalid">
+    Submit
+  </button>
+</form>

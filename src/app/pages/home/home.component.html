@@ -1,23 +1,26 @@
-<div class="h-full flex flex-col gap-4">
+<div class="h-full flex flex-col gap-4 px-12">
   <div class="flex justify-end">
-    <button (click)="openDialog()">test</button>
-  </div>
-  <div class="card flex justify-center">
-    <p-button label="Check" />
-  </div>
-  <div class="flex flex-wrap gap-8 justify-center">
-    <app-movie-card class="w-1/4" *ngFor="let movie of movies" [movie]="movie">
-    </app-movie-card>
+    <button (click)="openDialog()">Add</button>
   </div>
 
-  <p-dialog
-    class="!bg-red-500"
-    [(visible)]="displayDialog"
-    [modal]="true"
-    [closable]="true"
-    header="Movie Details"
-    (onHide)="closeDialog()"
+  <div
+    class="flex sm:flex-wrap items-center flex-col sm:flex-row sm:justify-between gap-8"
   >
-    <p>Content inside the dialog</p>
-  </p-dialog>
+    <app-movie-card
+      class="w-[14.3rem]"
+      *ngFor="let movie of movies"
+      [movie]="movie"
+    >
+    </app-movie-card>
+  </div>
 </div>
+
+<p-dialog
+  [(visible)]="displayDialog"
+  [modal]="true"
+  [closable]="true"
+  header="Add Movie"
+  (onHide)="closeDialog()"
+>
+  <app-movie-crud [movie]="emptyMovie"></app-movie-crud>
+</p-dialog>
