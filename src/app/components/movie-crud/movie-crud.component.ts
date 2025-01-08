@@ -25,7 +25,7 @@ export class MovieCrudComponent implements OnInit {
 
   categoryOptions: { label: string; value: string }[] = [];
   filteredMovies: Movie[] = [];
-  isEditMode: boolean = false; // Track edit mode
+  isEditMode: boolean = false;
 
   fields = [
     {
@@ -73,6 +73,7 @@ export class MovieCrudComponent implements OnInit {
     },
   ];
 
+  // Initialize form with validation
   constructor(private fb: FormBuilder, private movieService: MovieService) {
     this.movieForm = this.fb.group({
       Title: ['', Validators.required],
@@ -117,9 +118,11 @@ export class MovieCrudComponent implements OnInit {
   onSubmit(): void {
     this.movieForm.markAllAsTouched();
 
+    // Check if form is valid
     if (this.movieForm.valid) {
       const newMovie: Movie = this.movieForm.getRawValue();
 
+      // Update or add movie logic
       if (this.isEditMode) {
         this.movieService.updateMovie(newMovie);
         console.log('Movie updated:', newMovie);
@@ -134,6 +137,7 @@ export class MovieCrudComponent implements OnInit {
     }
   }
 
+  // Check if movie exists in the list
   private isExistingMovie(title: string): boolean {
     return !!this.filteredMovies.find((movie) => movie.Title === title);
   }

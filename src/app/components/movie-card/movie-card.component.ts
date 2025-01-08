@@ -28,16 +28,19 @@ export class MovieCardComponent {
   @Input() movie!: Movie;
   @Output() movieDeleted = new EventEmitter<string>();
 
+  // Initialize the dialog display properties
   displayDeleteDialog: boolean = false;
   displayEditDialog: boolean = false;
   counter: string = '02:00:00';
 
+  // Inject the Router, MovieService, and AuthService
   constructor(
     private router: Router,
     private movieService: MovieService,
     private authService: AuthService
   ) {}
 
+  // Check if the user is logged in and get the countdown time
   ngOnInit(): void {
     this.authService.isAdmin$.subscribe((isLoggedIn) => {
       this.isLogged = isLoggedIn;
@@ -48,14 +51,14 @@ export class MovieCardComponent {
     });
   }
 
+  // Convert timer to minutes
   convertCounterToMinutes(counter: string): number {
     const [hours, minutes, seconds] = counter.split(':').map(Number);
     return hours * 60 + minutes + seconds / 60;
   }
 
+  // Convert the movie duration from string to number
   parseMovieDuration(duration: string): number {
-    // Convert the movie duration from string to number
-
     return parseInt(duration, 10);
   }
 

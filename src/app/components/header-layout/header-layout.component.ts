@@ -39,6 +39,7 @@ export class HeaderLayoutComponent {
     });
   }
 
+  // Check if the user is logged in and get the countdown time
   ngOnInit(): void {
     this.authService.isAdmin$.subscribe((isLoggedIn) => {
       this.isLogged = isLoggedIn;
