@@ -1,0 +1,7 @@
+<div class="h-full" *ngIf="movie; else notFound">
+  <h1>{{ movie.Title }}</h1>
+</div>
+
+<ng-template #notFound>
+  <h1>Movie not found</h1>
+</ng-template>

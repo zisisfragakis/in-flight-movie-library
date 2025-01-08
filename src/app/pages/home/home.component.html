@@ -1,0 +1,23 @@
+<div class="h-full flex flex-col gap-4">
+  <div class="flex justify-end">
+    <button (click)="openDialog()">test</button>
+  </div>
+  <div class="card flex justify-center">
+    <p-button label="Check" />
+  </div>
+  <div class="flex flex-wrap gap-8 justify-center">
+    <app-movie-card class="w-1/4" *ngFor="let movie of movies" [movie]="movie">
+    </app-movie-card>
+  </div>
+
+  <p-dialog
+    class="!bg-red-500"
+    [(visible)]="displayDialog"
+    [modal]="true"
+    [closable]="true"
+    header="Movie Details"
+    (onHide)="closeDialog()"
+  >
+    <p>Content inside the dialog</p>
+  </p-dialog>
+</div>

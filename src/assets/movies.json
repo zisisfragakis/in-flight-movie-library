@@ -1,0 +1,162 @@
+[
+    {
+        "Title": "The Shawshank Redemption",
+        "Category": ["drama"],
+        "Starring": ["Tim Robbins", "Morgan Freeman"],
+        "Director": "Frank Darabont",
+        "Description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+        "Duration": "142"
+    },
+    {
+        "Title": "The Godfather",
+        "Category": ["crime", "drama"],
+        "Starring": ["Marlon Brando", "Al Pacino"],
+        "Director": "Francis Ford Coppola",
+        "Description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+        "Duration": "175"
+    },
+    {
+        "Title": "The Dark Knight",
+        "Category": ["action", "crime", "drama"],
+        "Starring": ["Christian Bale", "Heath Ledger"],
+        "Director": "Christopher Nolan",
+        "Description": "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
+        "Duration": "152"
+    },
+    {
+        "Title": "Pulp Fiction",
+        "Category": ["crime", "drama"],
+        "Starring": ["John Travolta", "Uma Thurman", "Samuel L. Jackson"],
+        "Director": "Quentin Tarantino",
+        "Description": "The lives of two mob hitmen, a boxer, a gangster, and his wife intertwine in a series of unexpected events.",
+        "Duration": "154"
+    },
+    {
+        "Title": "Forrest Gump",
+        "Category": ["drama", "romance"],
+        "Starring": ["Tom Hanks", "Robin Wright"],
+        "Director": "Robert Zemeckis",
+        "Description": "The story of a slow-witted but kind-hearted man from Alabama and his extraordinary life journey.",
+        "Duration": "142"
+    },
+    {
+        "Title": "Inception",
+        "Category": ["action", "sci-fi", "thriller"],
+        "Starring": ["Leonardo DiCaprio", "Joseph Gordon-Levitt"],
+        "Director": "Christopher Nolan",
+        "Description": "A thief who steals corporate secrets through dream-sharing technology is tasked with planting an idea into thed of a CEO.",
+        "Duration": "148"
+    },
+    {
+        "Title": "The Matrix",
+        "Category": ["action", "sci-fi"],
+        "Starring": ["Keanu Reeves", "Laurence Fishburne"],
+        "Director": "The Wachowskis",
+        "Description": "A computer hacker learns about the true nature of his reality and his role in the war against its controllers.",
+        "Duration": "136"
+    },
+    {
+        "Title": "Fight Club",
+        "Category": ["drama"],
+        "Starring": ["Brad Pitt", "Edward Norton"],
+        "Director": "David Fincher",
+        "Description": "An insomniac office worker forms an underground fight club with a soap salesman that evolves into something much bigger.",
+        "Duration": "139"
+    },
+    {
+        "Title": "The Lord of the Rings: The Fellowship of the Ring",
+        "Category": ["adventure", "drama", "fantasy"],
+        "Starring": ["Elijah Wood", "Ian McKellen"],
+        "Director": "Peter Jackson",
+        "Description": "A meek hobbit from the Shire and his friends set out to destroy the powerful One Ring and save Middle-earth.",
+        "Duration": "178"
+    },
+    {
+        "Title": "Star Wars: Episode IV - A New Hope",
+        "Category": ["action", "adventure", "fantasy"],
+        "Starring": ["Mark Hamill", "Harrison Ford"],
+        "Director": "George Lucas",
+        "Description": "Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, and two droids to save the galaxy from the Empire's battle station.",
+        "Duration": "121"
+    },
+    {
+        "Title": "Gladiator",
+        "Category": ["action", "adventure", "drama"],
+        "Starring": ["Russell Crowe", "Joaquin Phoenix"],
+        "Director": "Ridley Scott",
+        "Description": "A former Roman general seeks revenge against the corrupt emperor who murdered his family and sent him into slavery.",
+        "Duration": "155"
+    },
+    {
+        "Title": "Titanic",
+        "Category": ["drama", "romance"],
+        "Starring": ["Leonardo DiCaprio", "Kate Winslet"],
+        "Director": "James Cameron",
+        "Description": "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the ill-fated R.M.S. Titanic.",
+        "Duration": "195"
+    },
+    {
+        "Title": "Schindler's List",
+        "Category": ["biography", "drama", "history"],
+        "Starring": ["Liam Neeson", "Ralph Fiennes"],
+        "Director": "Steven Spielberg",
+        "Description": "In German-occupied Poland, a businessman becomes concerned for his Jewish workforce after witnessing their persecution.",
+        "Duration": "195"
+    },
+    {
+        "Title": "The Lion King",
+        "Category": ["animation", "adventure", "drama"],
+        "Starring": ["Matthew Broderick", "Jeremy Irons"],
+        "Director": "Roger Allers, Robkoff",
+        "Description": "A young lion prince flees his kingdom after the murder of his father and learns valuable life lessons in exile.",
+        "Duration": "88"
+    },
+    {
+        "Title": "Jurassic Park",
+        "Category": ["action", "adventure", "sci-fi"],
+        "Starring": ["Sam Neill", "Laura Dern", "Jeff Goldblum"],
+        "Director": "Steven Spielberg",
+        "Description": "A theme park suffers a major power breakdown, allowing its cloned dinosaur exhibits to run amok.",
+        "Duration": "127"
+    },
+    {
+        "Title": "The Silence of the Lambs",
+        "Category": ["crime", "drama", "thriller"],
+        "Starring": ["Jodie Foster", "Anthony Hopkins"],
+        "Director": "Jonathan Demme",
+        "Description": "A young FBI cadet must confide in an incarcerated and manipulative killer to catch another serial killer.",
+        "Duration": "118"
+    },
+    {
+        "Title": "Back to the Future",
+        "Category": ["adventure", "comedy", "sci-fi"],
+        "Starring": ["Michael J. Fox", "Christopher Lloyd"],
+        "Director": "Robert Zemeckis",
+        "Description": "A teenager is accidentally sent back in time, where he must ensure his parents meet to safeguard his existence.",
+        "Duration": "116"
+    },
+    {
+        "Title": "The Avengers",
+        "Category": ["action", "adventure", "sci-fi"],
+        "Starring": ["Robert Downey Jr.", "Chris Evans", "Scarlett Johansson"],
+        "Director": "Joss Whedon",
+        "Description": "Earth's mightiest heroes must unite to stop the mischievous Loki and his alien army from enslaving humanity.",
+        "Duration": "143"
+    },
+    {
+        "Title": "The Terminator",
+        "Category": ["action", "sci-fi"],
+        "Starring": ["Arnold Schwarzenegger", "Linda Hamilton"],
+        "Director": "James Cameron",
+        "Description": "A cyborg assassin is sent from the future to kill a woman whose unborn child will lead the resistance against machines.",
+        "Duration": "107"
+    },
+    {
+        "Title": "Saving Private Ryan",
+        "Category": ["drama", "war"],
+        "Starring": ["Tom Hanks", "Matt Damon"],
+        "Director": "Steven Spielberg",
+        "Description": "During WWII, a group of soldiers is sent behind enemy lines to find and bring home a paratrooper whose brothers have been killed in action.",
+        "Duration": "169"
+    }
+]
