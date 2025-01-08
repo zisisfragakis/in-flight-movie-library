@@ -22,7 +22,9 @@ export class MovieCrudComponent implements OnInit {
   @Output() formSubmit = new EventEmitter<void>();
 
   movieForm: FormGroup;
+
   categoryOptions: { label: string; value: string }[] = [];
+  filteredMovies: Movie[] = []; // To hold filtered movies from the service
 
   fields = [
     {
@@ -98,6 +100,11 @@ export class MovieCrudComponent implements OnInit {
         this.movieForm.get('Category')?.setValue(this.movie.Category);
       }
     });
+
+    // Subscribe to filteredMovies to use it for the existence check
+    this.movieService.filteredMovies$.subscribe((movies) => {
+      this.filteredMovies = movies;
+    });
   }
 
   onSubmit(): void {
@@ -106,10 +113,21 @@ export class MovieCrudComponent implements OnInit {
     if (this.movieForm.valid) {
       const newMovie: Movie = this.movieForm.value;
 
-      this.movieService.addMovie(newMovie);
+      if (this.isExistingMovie(newMovie.Title)) {
+        this.movieService.updateMovie(newMovie);
+        console.log('Movie updated:', newMovie);
+      } else {
+        this.movieService.addMovie(newMovie);
+        console.log('New movie added:', newMovie);
+      }
+
       this.formSubmit.emit();
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  private isExistingMovie(title: string): boolean {
+    return !!this.filteredMovies.find((movie) => movie.Title === title);
   }
 }

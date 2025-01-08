@@ -22,7 +22,6 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  movies: Movie[] = [];
   filteredMovies: Movie[] = [];
   displayDialog: boolean = false;
   categories: string[] = [];
@@ -40,11 +39,20 @@ export class HomeComponent implements OnInit {
   constructor(private movieService: MovieService) {}
 
   ngOnInit(): void {
+    // Subscribe to filteredMovies from MovieService
+    this.movieService.filteredMovies$.subscribe((movies) => {
+      this.filteredMovies = movies;
+    });
+
+    // Fetch categories
+    this.movieService.getCategories().subscribe((categories) => {
+      this.categories = categories;
+    });
+
+    // Fetch initial movies
     this.movieService.getMovies().subscribe({
-      next: (data) => {
-        this.movies = data;
-        this.filteredMovies = [...this.movies];
-        this.categories = this.getUniqueCategories();
+      next: () => {
+        console.log('Movies loaded successfully.');
       },
       error: (err) => {
         console.error('Error fetching movies:', err);
@@ -61,43 +69,16 @@ export class HomeComponent implements OnInit {
   }
 
   filterByCategory(): void {
-    if (this.selectedCategory) {
-      this.filteredMovies = this.movies.filter((movie) =>
-        movie.Category.includes(this.selectedCategory)
-      );
-    } else {
-      this.filteredMovies = [...this.movies];
-    }
-  }
-
-  sortByTitle(): void {
-    this.filteredMovies.sort((a, b) => {
-      const titleA = a.Title.toLowerCase();
-      const titleB = b.Title.toLowerCase();
-      if (titleA < titleB) return this.sortDirection === 'asc' ? -1 : 1;
-      if (titleA > titleB) return this.sortDirection === 'asc' ? 1 : -1;
-      return 0;
-    });
-  }
-
-  onMovieDeleted(title: string): void {
-    this.movies = this.movies.filter((movie) => movie.Title !== title);
-    this.filteredMovies = this.filteredMovies.filter(
-      (movie) => movie.Title !== title
-    );
-    console.log(`Movie "${title}" deleted successfully`);
+    this.movieService.filterMoviesByCategory(this.selectedCategory);
   }
 
   toggleSortDirection(): void {
     this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-    this.sortByTitle();
+    this.movieService.sortMoviesByTitle(this.sortDirection);
   }
 
-  private getUniqueCategories(): string[] {
-    const categories = new Set<string>();
-    this.movies.forEach((movie) => {
-      movie.Category.forEach((category) => categories.add(category));
-    });
-    return Array.from(categories);
+  onMovieDeleted(title: string): void {
+    this.movieService.deleteMovie(title);
+    console.log(`Movie "${title}" deleted successfully`);
   }
 }
