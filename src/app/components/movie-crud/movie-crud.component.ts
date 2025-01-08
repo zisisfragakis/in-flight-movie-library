@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormsModule,
@@ -19,6 +19,7 @@ import { MovieService } from '../../services/movie.service';
 })
 export class MovieCrudComponent implements OnInit {
   @Input({ required: true }) movie!: Movie;
+  @Output() formSubmit = new EventEmitter<void>();
 
   movieForm: FormGroup;
   categoryOptions: { label: string; value: string }[] = [];
@@ -81,7 +82,6 @@ export class MovieCrudComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Pre-fill the form with the provided movie data
     if (this.movie) {
       this.movieForm.patchValue(this.movie);
     }
@@ -104,7 +104,10 @@ export class MovieCrudComponent implements OnInit {
     this.movieForm.markAllAsTouched();
 
     if (this.movieForm.valid) {
-      console.log('Movie Form Data:', this.movieForm.value);
+      const newMovie: Movie = this.movieForm.value;
+
+      this.movieService.addMovie(newMovie);
+      this.formSubmit.emit();
     } else {
       console.log('Form is invalid');
     }

@@ -30,7 +30,13 @@
     </div>
   </div>
   <div class="flex justify-end">
-    <button (click)="openDialog()">Add</button>
+    <button
+      class="p-2 border rounded-md hover:!text-green-300 hover:border-green-300 transition-all duration-300 flex gap-2 items-center"
+      (click)="openDialog()"
+    >
+      <span class="font-medium">ADD</span>
+      <i class="pi pi-plus-circle" style="font-size: 1rem"></i>
+    </button>
   </div>
 
   <div
@@ -40,6 +46,7 @@
       class="w-[14.3rem]"
       *ngFor="let movie of filteredMovies"
       [movie]="movie"
+      (movieDeleted)="onMovieDeleted($event)"
     >
     </app-movie-card>
   </div>
@@ -52,5 +59,8 @@
   header="Add Movie"
   (onHide)="closeDialog()"
 >
-  <app-movie-crud [movie]="emptyMovie"></app-movie-crud>
+  <app-movie-crud
+    [movie]="emptyMovie"
+    (formSubmit)="closeDialog()"
+  ></app-movie-crud>
 </p-dialog>

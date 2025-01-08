@@ -24,7 +24,7 @@ import { FormsModule } from '@angular/forms';
 export class HomeComponent implements OnInit {
   movies: Movie[] = [];
   filteredMovies: Movie[] = [];
-  displayDialog: boolean = true;
+  displayDialog: boolean = false;
   categories: string[] = [];
   selectedCategory: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
@@ -78,6 +78,14 @@ export class HomeComponent implements OnInit {
       if (titleA > titleB) return this.sortDirection === 'asc' ? 1 : -1;
       return 0;
     });
+  }
+
+  onMovieDeleted(title: string): void {
+    this.movies = this.movies.filter((movie) => movie.Title !== title);
+    this.filteredMovies = this.filteredMovies.filter(
+      (movie) => movie.Title !== title
+    );
+    console.log(`Movie "${title}" deleted successfully`);
   }
 
   toggleSortDirection(): void {
